@@ -10,12 +10,7 @@
 
 class Bishop : public Piece {
 public:
-    explicit Bishop(const Position& position) : Piece(position, 'B') {
-        m_attack_directions_.push_back(std::make_unique<LinearDirection>(1, 1));
-        m_attack_directions_.push_back(std::make_unique<LinearDirection>(-1, 1));
-        m_attack_directions_.push_back(std::make_unique<LinearDirection>(1, -1));
-        m_attack_directions_.push_back(std::make_unique<LinearDirection>(-1, -1));
-    }
+    explicit Bishop(const Position& position);
 };
 
 

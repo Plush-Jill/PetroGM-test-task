@@ -3,3 +3,13 @@
 //
 
 #include "../include/position.hpp"
+
+Position::Position(const int x, const int y) : m_x_(x), m_y_(y) {}
+
+int Position::getX() const { return m_x_; }
+
+int Position::getY() const { return m_y_; }
+
+void Position::setX(const int new_x) { m_x_ = new_x; }
+
+void Position::setY(const int new_y) { m_y_ = new_y; }

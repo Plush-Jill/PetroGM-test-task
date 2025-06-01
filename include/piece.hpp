@@ -5,8 +5,10 @@
 #ifndef PIECE_HPP
 #define PIECE_HPP
 #include <memory>
+#include <utility>
+
+#include "position.hpp"
 #include "attack-direction/attack-direction.hpp"
-#include "chess-board.hpp"
 
 class ChessBoard;
 class AttackDirection;
@@ -18,28 +20,12 @@ protected:
     std::vector<std::unique_ptr<AttackDirection>> m_attack_directions_;
 public:
     virtual ~Piece() = default;
-
-    virtual void move(const Position& position) {
-
-    };
-
+    // virtual void move(const Position& position) = 0;
     [[nodiscard]] virtual constexpr char getSymbol() const = 0;
-
-    Piece(const Position& position, const char symbol) : m_position_(position), m_symbol_(symbol) {}
-
-    [[nodiscard]] virtual bool canAttack(const Position& target_position, const ChessBoard& board) const {
-        for (const auto& direction : m_attack_directions_) {
-            for (auto targets = direction->getPossibleTargets(m_position_, board);
-                const auto&[x, y] : targets) {
-                if (x == target_position.first && y == target_position.second) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
+    explicit Piece(Position position, char symbol);
+    [[nodiscard]] virtual bool canAttack(const Position& target_position, const ChessBoard& board) const = 0;
     [[nodiscard]] virtual bool canBeAttacked() const = 0;
+    [[nodiscard]] Position getPosition() const { return m_position_; }
 };
 
 

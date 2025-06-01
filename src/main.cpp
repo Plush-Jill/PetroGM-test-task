@@ -4,6 +4,6 @@
 #include "pieces/king.hpp"
 
 int main() {
-    Piece* king = new King({4, 4});
+    Piece* king = new King(Position(4, 4));
     return 0;
 }

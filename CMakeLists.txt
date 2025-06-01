@@ -28,7 +28,8 @@ add_executable(PetroGM_test_task src/main.cpp
         src/pieces/shadow-trace.cpp
         include/pieces/shadow-trace.hpp
         src/position.cpp
-        include/position.hpp)
+        include/position.hpp
+        src/piece.cpp)
 
 include_directories("include")
 target_include_directories(PetroGM_test_task PUBLIC "include")
