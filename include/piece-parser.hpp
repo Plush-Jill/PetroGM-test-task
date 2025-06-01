@@ -13,7 +13,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "pieces/piece.hpp"
+#include "pieces/abstract-piece.hpp"
 #include "piece-factory.hpp"
 
 class PieceParser {
@@ -23,8 +23,8 @@ private:
 public:
     PieceParser() : m_factory_(PieceFactory::instance()) {}
 
-    [[nodiscard]] static std::vector<std::unique_ptr<Piece>> parseFile(const std::string& filename) {
-        std::vector<std::unique_ptr<Piece>> pieces;
+    [[nodiscard]] static std::vector<std::unique_ptr<AbstractPiece>> parseFile(const std::string& filename) {
+        std::vector<std::unique_ptr<AbstractPiece>> pieces;
         std::ifstream file(filename);
 
         if (!file.is_open()) {

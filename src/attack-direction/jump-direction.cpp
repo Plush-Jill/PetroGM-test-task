@@ -6,8 +6,10 @@
 #include "chess-board.hpp"
 JumpDirection::JumpDirection(std::vector<std::pair<int, int>> jump_offsets) : m_offsets_(std::move(jump_offsets)) {}
 
-std::vector<Position> JumpDirection::getPossibleTargets(const Position &from_position,
-                                                                   const ChessBoard &board) const {
+std::vector<Position> JumpDirection::getPossibleTargets(
+    const Position &from_position,
+    const ChessBoard &board) const {
+
     std::vector<Position> targets;
 
     for (const auto&[x, y] : m_offsets_) {

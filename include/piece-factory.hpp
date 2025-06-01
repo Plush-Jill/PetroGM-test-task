@@ -9,12 +9,12 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "pieces/piece.hpp"
+#include "pieces/abstract-piece.hpp"
 
 
 class PieceFactory {
 public:
-    using Creator = std::function<std::unique_ptr<Piece>(const Position&)>;
+    using Creator = std::function<std::unique_ptr<AbstractPiece>(const Position&)>;
 
 private:
     std::map<std::string, Creator> m_creators;
@@ -29,7 +29,7 @@ public:
      * @param position Позиция фигуры
      * @return Указатель на созданную фигуру или nullptr, если фигура не найдена.
      */
-    [[nodiscard]] std::unique_ptr<Piece> create(const std::string &name, const Position &position) const;
+    [[nodiscard]] std::unique_ptr<AbstractPiece> create(const std::string &name, const Position &position) const;
 
     /**
      *

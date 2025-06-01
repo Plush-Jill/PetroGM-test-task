@@ -5,11 +5,11 @@
 #ifndef BISHOP_HPP
 #define BISHOP_HPP
 #include "piece-registrar.hpp"
-#include "piece.hpp"
+#include "abstract-piece.hpp"
 #include "attack-direction/linear-direction.hpp"
 
 
-class Bishop final : public Piece {
+class Bishop final : public AbstractPiece {
 private:
     static constexpr std::string s_piece_name_ {"bishop"};
     static constexpr char s_symbol_ {'B'};

@@ -7,7 +7,7 @@
 
 
 #include <format>
-#include "pieces/piece.hpp"
+#include "pieces/abstract-piece.hpp"
 #include <string>
 
 class AttackRelation {

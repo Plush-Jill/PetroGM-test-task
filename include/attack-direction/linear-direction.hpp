@@ -7,10 +7,10 @@
 #include <utility>
 #include <vector>
 
-#include "attack-direction.hpp"
+#include "abstract-attack-direction.hpp"
 class ChessBoard;
 
-class LinearDirection final : public AttackDirection {
+class LinearDirection final : public AbstractAttackDirection {
 private:
     int m_offset_x_;
     int m_offset_y_;

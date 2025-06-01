@@ -7,11 +7,11 @@
 #include <memory>
 
 #include "piece-registrar.hpp"
-#include "piece.hpp"
+#include "abstract-piece.hpp"
 #include "attack-direction/jump-direction.hpp"
 
 
-class Knight final : public Piece {
+class Knight final : public AbstractPiece {
 private:
     static constexpr std::string s_piece_name_ {"knight"};
     static constexpr char s_symbol_ {'H'};

@@ -7,10 +7,10 @@
 #include <utility>
 #include <vector>
 
-#include "attack-direction.hpp"
+#include "abstract-attack-direction.hpp"
 
 
-class JumpDirection final : public AttackDirection {
+class JumpDirection final : public AbstractAttackDirection {
 private:
     std::vector<std::pair<int, int>> m_offsets_;
 public:

@@ -7,11 +7,11 @@
 #include <memory>
 
 #include "piece-registrar.hpp"
-#include "piece.hpp"
+#include "abstract-piece.hpp"
 #include "attack-direction/linear-direction.hpp"
 
 // Ладья
-class Rook final : public Piece {
+class Rook final : public AbstractPiece {
 private:
     static constexpr std::string s_piece_name_ {"rook"};
     static constexpr char s_symbol_ {'R'};

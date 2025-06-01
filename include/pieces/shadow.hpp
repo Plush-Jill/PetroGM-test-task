@@ -7,11 +7,11 @@
 #include <memory>
 
 #include "piece-registrar.hpp"
-#include "piece.hpp"
+#include "abstract-piece.hpp"
 #include "attack-direction/linear-direction.hpp"
 
 
-class Shadow final : public Piece {
+class Shadow final : public AbstractPiece {
 private:
     static constexpr std::string s_piece_name_ {"shadow"};
     static constexpr char s_symbol_ {'S'};

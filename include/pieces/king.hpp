@@ -5,11 +5,11 @@
 #ifndef KING_HPP
 #define KING_HPP
 #include "piece-registrar.hpp"
-#include "piece.hpp"
+#include "abstract-piece.hpp"
 #include "attack-direction/linear-direction.hpp"
 
 
-class King final : public Piece {
+class King final : public AbstractPiece {
 private:
     static constexpr std::string s_piece_name_ {"king"};
     static constexpr char s_symbol_ {'K'};

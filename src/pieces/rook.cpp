@@ -4,7 +4,7 @@
 
 #include "pieces/rook.hpp"
 
-Rook::Rook(const Position &position) : Piece(position, 'R') {
+Rook::Rook(const Position &position) : AbstractPiece(position, s_symbol_) {
     m_attack_directions_.push_back(std::make_unique<LinearDirection>(1, 0));
     m_attack_directions_.push_back(std::make_unique<LinearDirection>(-1, 0));
     m_attack_directions_.push_back(std::make_unique<LinearDirection>(0, 1));
@@ -14,7 +14,7 @@ Rook::Rook(const Position &position) : Piece(position, 'R') {
 
 PieceRegistrar Rook::s_registrar_ {
     s_piece_name_,
-    [](const Position& position) -> std::unique_ptr<Piece> {
+    [](const Position& position) -> std::unique_ptr<AbstractPiece> {
         return std::make_unique<Rook>(position);
     }
 };

@@ -4,7 +4,7 @@
 
 #include "../../include/pieces/shadow-trace.hpp"
 
-ShadowTrace::ShadowTrace(const Position &position) : Piece(position, s_symbol_) {}
+ShadowTrace::ShadowTrace(const Position &position) : AbstractPiece(position, s_symbol_) {}
 
 bool ShadowTrace::canAttack(const Position &target_position, const ChessBoard &board) {
     return false;
@@ -18,10 +18,14 @@ char ShadowTrace::getSymbol() const { return s_symbol_; }
 
 std::string ShadowTrace::getName() { return s_piece_name_; }
 
+void ShadowTrace::decreaseLifetime() { --m_lifetime_; }
+
+bool ShadowTrace::isExpired() const { return m_lifetime_ <= 0; }
+
 
 PieceRegistrar ShadowTrace::s_registrar_ {
     s_piece_name_,
-    [](const Position& position) -> std::unique_ptr<Piece> {
+    [](const Position& position) -> std::unique_ptr<AbstractPiece> {
         return std::make_unique<ShadowTrace>(position);
     }
 };

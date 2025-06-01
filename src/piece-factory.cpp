@@ -9,7 +9,7 @@ PieceFactory& PieceFactory::instance() {
     return factory;
 }
 
-std::unique_ptr<Piece> PieceFactory::create(const std::string& name, const Position& position) const {
+std::unique_ptr<AbstractPiece> PieceFactory::create(const std::string& name, const Position& position) const {
     if (const auto it = m_creators.find(name); it != m_creators.end()) {
         return it->second(position);
     }

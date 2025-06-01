@@ -4,7 +4,7 @@
 
 #include "../../include/pieces/shadow.hpp"
 
-Shadow::Shadow(const Position &position) : Piece(position, 'S') {
+Shadow::Shadow(const Position &position) : AbstractPiece(position, s_symbol_) {
     for (int dx {-1}; dx <= 1; ++dx) {
         for (int dy {-1}; dy <= 1; ++dy) {
             if (dx != 0 || dy != 0) {
@@ -23,7 +23,7 @@ std::string Shadow::getName() { return s_piece_name_; }
 
 PieceRegistrar Shadow::s_registrar_ {
     s_piece_name_,
-    [](const Position& position) -> std::unique_ptr<Piece> {
+    [](const Position& position) -> std::unique_ptr<AbstractPiece> {
         return std::make_unique<Shadow>(position);
     }
 };
