@@ -23,7 +23,7 @@ public:
     // virtual void move(const Position& position) = 0;
     [[nodiscard]] virtual constexpr char getSymbol() const = 0;
     explicit Piece(Position position, char symbol);
-    [[nodiscard]] virtual bool canAttack(const Position& target_position, const ChessBoard& board) const = 0;
+    [[nodiscard]] virtual bool canAttack(const Position& target_position, const ChessBoard& board) const;
     [[nodiscard]] virtual bool canBeAttacked() const = 0;
     [[nodiscard]] Position getPosition() const { return m_position_; }
 };
