@@ -29,7 +29,12 @@ add_executable(PetroGM_test_task src/main.cpp
         include/pieces/shadow-trace.hpp
         src/position.cpp
         include/position.hpp
-        src/piece.cpp)
+        src/piece.cpp
+        include/piece-factory.cpp
+        include/piece-factory.hpp
+        include/piece-registrar.cpp
+        include/piece-registrar.hpp
+)
 
 include_directories("include")
 target_include_directories(PetroGM_test_task PUBLIC "include")
