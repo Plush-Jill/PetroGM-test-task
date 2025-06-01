@@ -11,3 +11,15 @@ Knight::Knight(const Position &position) : Piece(position, 'N') {
     };
     m_attack_directions_.push_back(std::make_unique<JumpDirection>(knight_moves));
 }
+
+
+PieceRegistrar Knight::s_registrar_ {
+    s_piece_name_,
+    [](const Position& position) -> std::unique_ptr<Piece> {
+        return std::make_unique<Knight>(position);
+    }
+};
+
+char Knight::getSymbol() const {
+    return s_symbol_;
+}

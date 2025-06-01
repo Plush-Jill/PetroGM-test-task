@@ -14,19 +14,11 @@ King::King(const Position &position) : Piece(position, s_symbol_) {
     }
 }
 
-bool King::canBeAttacked() const {
-    return true;
-}
-
 char King::getSymbol() const { return s_symbol_; }
-
-bool King::canAttack(const Position &target_position, const ChessBoard &board) const {
-    return true;
-}
 
 
 PieceRegistrar King::s_registrar_ {
-    m_command_name_,
+    s_piece_name_,
     [](const Position& position) -> std::unique_ptr<Piece> {
         return std::make_unique<King>(position);
     }

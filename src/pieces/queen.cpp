@@ -13,3 +13,14 @@ Queen::Queen(const Position &position) : Piece(position, 'Q') {
         }
     }
 }
+
+
+PieceRegistrar Queen::s_registrar_ {
+    s_piece_name_,
+    [](const Position& position) -> std::unique_ptr<Piece> {
+        return std::make_unique<Queen>(position);
+    }
+};
+
+char Queen::getSymbol() const { return s_symbol_; }
+

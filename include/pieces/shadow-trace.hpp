@@ -5,15 +5,19 @@
 #ifndef SHADOW_TRACE_HPP
 #define SHADOW_TRACE_HPP
 #include "chess-board.hpp"
+#include "piece-registrar.hpp"
 #include "piece.hpp"
 
 
 class ShadowTrace final : public Piece {
 private:
+    static constexpr std::string s_piece_name_ {"shadow_trace"};
     static constexpr char s_symbol_ {'T'};
+    static PieceRegistrar s_registrar_;
+
 public:
     explicit ShadowTrace(const Position& position);
-    [[nodiscard]] bool canAttack(const Position& target_position, const ChessBoard& board) const override;
+    [[nodiscard]] static bool canAttack(const Position &target_position, const ChessBoard &board);
     [[nodiscard]] bool canBeAttacked() const override;
     [[nodiscard]] char getSymbol() const override;
 };

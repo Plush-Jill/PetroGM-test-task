@@ -4,7 +4,7 @@ project(PetroGM_test_task)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(PetroGM_test_task src/main.cpp
-        include/piece.hpp
+        include/pieces/piece.hpp
         src/pieces/king.cpp
         include/pieces/king.hpp
         src/chess-board.cpp
@@ -29,10 +29,10 @@ add_executable(PetroGM_test_task src/main.cpp
         include/pieces/shadow-trace.hpp
         src/position.cpp
         include/position.hpp
-        src/piece.cpp
-        include/piece-factory.cpp
+        src/pieces/piece.cpp
+        src/piece-factory.cpp
         include/piece-factory.hpp
-        include/piece-registrar.cpp
+        src/piece-registrar.cpp
         include/piece-registrar.hpp
 )
 

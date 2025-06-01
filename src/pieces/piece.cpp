@@ -1,7 +1,7 @@
 //
 // Created by plush-jill on 6/1/25.
 //
-#include "../include/piece.hpp"
+#include "../../include/pieces/piece.hpp"
 
 Piece::Piece(const Position position, const char symbol) : m_position_(position), m_symbol_(symbol) {}
 
@@ -15,4 +15,8 @@ bool Piece::canAttack(const Position &target_position, const ChessBoard &board) 
         }
     }
     return false;
+}
+
+bool Piece::canBeAttacked() const {
+    return true;
 }

@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "piece.hpp"
+#include "pieces/piece.hpp"
 
 
 class PieceFactory {

@@ -3,7 +3,7 @@
 //
 
 #include "../include/chess-board.hpp"
-#include "../include/piece.hpp"
+#include "../include/pieces/piece.hpp"
 
 bool ChessBoard::isValidPosition(const Position &position) const {
     return

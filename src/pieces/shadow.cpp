@@ -13,3 +13,15 @@ Shadow::Shadow(const Position &position) : Piece(position, 'S') {
         }
     }
 }
+
+char Shadow::getSymbol() const {
+    return s_symbol_;
+}
+
+
+PieceRegistrar Shadow::s_registrar_ {
+    s_piece_name_,
+    [](const Position& position) -> std::unique_ptr<Piece> {
+        return std::make_unique<Shadow>(position);
+    }
+};

@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-#include "piece.hpp"
+#include "pieces/piece.hpp"
 #include "position.hpp"
 class Piece;
 
