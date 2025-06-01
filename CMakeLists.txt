@@ -34,6 +34,10 @@ add_executable(PetroGM_test_task src/main.cpp
         include/piece-factory.hpp
         src/piece-registrar.cpp
         include/piece-registrar.hpp
+        src/piece-parser.cpp
+        include/piece-parser.hpp
+        src/attack-relation.cpp
+        include/attack-relation.hpp
 )
 
 include_directories("include")

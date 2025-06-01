@@ -22,3 +22,5 @@ PieceRegistrar Bishop::s_registrar_ {
 char Bishop::getSymbol() const {
     return s_symbol_;
 }
+
+std::string Bishop::getName() { return s_piece_name_; }

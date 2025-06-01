@@ -23,3 +23,5 @@ PieceRegistrar Knight::s_registrar_ {
 char Knight::getSymbol() const {
     return s_symbol_;
 }
+
+std::string Knight::getName() { return s_piece_name_;}

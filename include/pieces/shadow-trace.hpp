@@ -20,6 +20,7 @@ public:
     [[nodiscard]] static bool canAttack(const Position &target_position, const ChessBoard &board);
     [[nodiscard]] bool canBeAttacked() const override;
     [[nodiscard]] char getSymbol() const override;
+    [[nodiscard]] std::string getName() override;
 };
 
 

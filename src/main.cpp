@@ -1,15 +1,24 @@
 #include <iostream>
 #include "chess-board.hpp"
+#include "piece-parser.hpp"
 #include "../include/pieces/piece.hpp"
 #include "pieces/king.hpp"
 
 int main() {
-    Piece* king = new King(Position(4, 4));
-
-    std::unique_ptr<Piece> king2 = PieceFactory::instance().create("king", Position(4, 4));
-    auto pieces = PieceFactory::instance().get_available_pieces();
-    for (const auto& piece_name : pieces) {
-        std::cout << piece_name << std::endl;
+    auto pieces2 = PieceParser::parseFile("/home/plush-jill/All_Random/git/PetroGM-test-task/inputs/pieces.txt");
+    for (const auto& piece : pieces2) {
+        std::cout << std::format("{} at ({},{})",
+            piece->getName(),
+            piece->getPosition().getX(),
+            piece->getPosition().getY())
+        << std::endl;
     }
+    ChessBoard board;
+    board.addPieces(std::move(pieces2));
+    std::vector<AttackRelation> attack_relations = board.getAttackRelations();
+    for (const auto& relation : attack_relations) {
+        std::cout << relation.toString() << std::endl;
+    }
+
     return 0;
 }

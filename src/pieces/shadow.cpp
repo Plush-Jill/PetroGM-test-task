@@ -18,6 +18,8 @@ char Shadow::getSymbol() const {
     return s_symbol_;
 }
 
+std::string Shadow::getName() { return s_piece_name_; }
+
 
 PieceRegistrar Shadow::s_registrar_ {
     s_piece_name_,

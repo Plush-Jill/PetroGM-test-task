@@ -23,3 +23,5 @@ PieceRegistrar Rook::s_registrar_ {
 char Rook::getSymbol() const {
     return s_symbol_;
 }
+
+std::string Rook::getName() { return s_piece_name_; }

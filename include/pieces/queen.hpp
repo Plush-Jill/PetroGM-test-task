@@ -18,6 +18,7 @@ private:
 public:
     explicit Queen(const Position& position);
     [[nodiscard]] char getSymbol() const override;
+    [[nodiscard]] std::string getName() override;
 };
 
 

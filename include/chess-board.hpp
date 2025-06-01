@@ -8,21 +8,22 @@
 #include <vector>
 #include <memory>
 
-#include "pieces/piece.hpp"
+#include "attack-relation.hpp"
 #include "position.hpp"
-class Piece;
+#include "pieces/piece.hpp"
+
 
 class ChessBoard {
 private:
     int m_size_;
-    std::vector<std::unique_ptr<Piece>> pieces;
+    std::vector<std::unique_ptr<Piece>> m_pieces_;
 
 public:
-    explicit ChessBoard(const int size = 8) : m_size_(size) {};
+    explicit ChessBoard(int size = 8);
     [[nodiscard]] bool isValidPosition(const Position& position) const;
     [[nodiscard]] bool hasPieceAt(const Position& position) const;
-    [[nodiscard]] Piece* getPieceAt(const Position& position) const;
-
+    void addPieces(std::vector<std::unique_ptr<Piece>>&& new_pieces);
+    [[nodiscard]] std::vector<AttackRelation> getAttackRelations() const;
 
 };
 

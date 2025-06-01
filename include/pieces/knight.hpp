@@ -20,6 +20,7 @@ private:
 public:
     explicit Knight(const Position& position);
     [[nodiscard]] char getSymbol() const override;
+    [[nodiscard]] std::string getName() override;
 };
 
 

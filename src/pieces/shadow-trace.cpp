@@ -16,6 +16,8 @@ bool ShadowTrace::canBeAttacked() const {
 
 char ShadowTrace::getSymbol() const { return s_symbol_; }
 
+std::string ShadowTrace::getName() { return s_piece_name_; }
+
 
 PieceRegistrar ShadowTrace::s_registrar_ {
     s_piece_name_,

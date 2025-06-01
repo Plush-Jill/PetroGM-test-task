@@ -13,3 +13,7 @@ int Position::getY() const { return m_y_; }
 void Position::setX(const int new_x) { m_x_ = new_x; }
 
 void Position::setY(const int new_y) { m_y_ = new_y; }
+
+bool Position::operator==(const Position &other) const {
+    return m_x_ == other.m_x_ && m_y_ == other.m_y_;
+}

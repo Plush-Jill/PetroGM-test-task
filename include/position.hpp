@@ -18,6 +18,7 @@ public:
     [[nodiscard]] int getY() const;
     void setX(int new_x);
     void setY(int new_y);
+    bool operator==(const Position& other) const;
 };
 
 

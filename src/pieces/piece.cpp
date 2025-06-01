@@ -20,3 +20,9 @@ bool Piece::canAttack(const Position &target_position, const ChessBoard &board) 
 bool Piece::canBeAttacked() const {
     return true;
 }
+
+Position Piece::getPosition() const { return m_position_; }
+
+const std::vector<std::unique_ptr<AttackDirection>>& Piece::getAttackDirections() const {
+    return m_attack_directions_;
+}

@@ -16,6 +16,10 @@ King::King(const Position &position) : Piece(position, s_symbol_) {
 
 char King::getSymbol() const { return s_symbol_; }
 
+std::string King::getName() {
+    return s_piece_name_;
+}
+
 
 PieceRegistrar King::s_registrar_ {
     s_piece_name_,

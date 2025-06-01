@@ -17,6 +17,7 @@ private:
 public:
     explicit Bishop(const Position& position);
     [[nodiscard]] char getSymbol() const override;
+    [[nodiscard]] std::string getName() override;
 };
 
 
