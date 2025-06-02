@@ -34,6 +34,7 @@ int main(const int argc, char** argv) {
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
         std::cout << "An error occurred during game creating, shutdown.\n";
+        return EXIT_FAILURE;
     }
     const std::vector<std::pair<Position, Position>> turns {{{5, 3}, {5, 1}},
                                                         {{3, 5}, {7, 1}},
