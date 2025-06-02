@@ -11,7 +11,6 @@ int main(const int argc, char** argv) {
         std::cout << std::format("Example: {} ./inputs/pieces.txt\n", argv[0]);
         return EXIT_SUCCESS;
     }
-
     std::vector<std::unique_ptr<AbstractPiece>> pieces;
 
     try {
@@ -21,16 +20,6 @@ int main(const int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    for (const auto& piece : pieces) {
-        std::cout << std::format("{} at ({},{})",
-            piece->getName(),
-            piece->getPosition().getX(),
-            piece->getPosition().getY())
-        << std::endl;
-    }
-    std::cout << "\n";
-
-    std::vector<AttackRelation> attack_relations;
     std::shared_ptr<ChessBoard> board;
     std::shared_ptr<BoardView> view;
     try {
@@ -39,60 +28,28 @@ int main(const int argc, char** argv) {
 
         board->addPieces(std::move(pieces));
         view->render();
-        view->show();
+        view->showField();
+        view->showAttackRelations();
         std::cout << "\n";
-
-        attack_relations = board->getAttackRelations();
-        for (const auto& relation : attack_relations) {
-            std::cout << std::format("{} at ({},{}) can attack {} at ({},{})\n",
-                relation.getAttackerName(),
-                relation.getAttackerPosition().getX(),
-                relation.getAttackerPosition().getY(),
-                relation.getTargetName(),
-                relation.getTargetPosition().getX(),
-                relation.getTargetPosition().getY());
-        }
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
         std::cout << "An error occurred during game creating, shutdown.\n";
     }
-    try {
-        board->attack(Position {5, 3} ,Position {5, 1});
-        board->nextTurn();
-        view->render();
-        view->show();
-
-        attack_relations = board->getAttackRelations();
-        for (const auto& relation : attack_relations) {
-            std::cout << std::format("{} at ({},{}) can attack {} at ({},{})\n",
-                relation.getAttackerName(),
-                relation.getAttackerPosition().getX(),
-                relation.getAttackerPosition().getY(),
-                relation.getTargetName(),
-                relation.getTargetPosition().getX(),
-                relation.getTargetPosition().getY());
+    const std::vector<std::pair<Position, Position>> turns {{{5, 3}, {5, 1}},
+                                                        {{3, 5}, {7, 1}},
+                                                        {{5, 1}, {5, 5}}};
+    for (const auto&[from, to] :turns) {
+        try {
+            board->makeTurn(from, to);
+            view->render();
+            view->showField();
+            view->showAttackRelations();
+            std::cout << "\n";
+        } catch (std::exception& exception) {
+            std::cout << exception.what() << std::endl;
+            std::cout << "Wrong attack, shutdown.\n";
+            return EXIT_FAILURE;
         }
-
-        board->attack(Position {3, 5} ,Position {7, 1});
-        // board->nextTurn();
-        view->render();
-        view->show();
-
-        attack_relations = board->getAttackRelations();
-        for (const auto& relation : attack_relations) {
-            std::cout << std::format("{} at ({},{}) can attack {} at ({},{})\n",
-                relation.getAttackerName(),
-                relation.getAttackerPosition().getX(),
-                relation.getAttackerPosition().getY(),
-                relation.getTargetName(),
-                relation.getTargetPosition().getX(),
-                relation.getTargetPosition().getY());
-        }
-
-        board->attack(Position {5, 1} ,Position {5, 5});
-    } catch (std::exception& exception) {
-        std::cout << exception.what() << std::endl;
-        std::cout << "Wrong attack, shutdown.\n";
     }
     return 0;
 }

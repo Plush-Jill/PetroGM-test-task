@@ -129,7 +129,6 @@ void ChessBoard::attack(const Position &from, const Position &to) {
                 error.what()));
         }
     }
-    decreaseShadowTraces();
 }
 
 void ChessBoard::cleanupTraces() {
@@ -145,6 +144,12 @@ void ChessBoard::cleanupTraces() {
 
 void ChessBoard::nextTurn() {
     cleanupTraces();
+    decreaseShadowTraces();
+}
+
+void ChessBoard::makeTurn(const Position& from, const Position& to) {
+    nextTurn();
+    attack(from, to);
 }
 
 void ChessBoard::deletePieceAt(const Position& position) {

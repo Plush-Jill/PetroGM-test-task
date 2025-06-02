@@ -11,23 +11,26 @@
 
 class BoardView {
 private:
+    std::vector<AttackRelation> m_attack_relations_;
     std::weak_ptr<ChessBoard>   m_board_;
     std::string                 m_newest_render_;
     static constexpr char       s_empty_cell_       {'.'};
 
 public:
-    explicit    BoardView   (const std::weak_ptr<ChessBoard>& board);
+    explicit    BoardView               (const std::weak_ptr<ChessBoard>& board);
 
     /**
-     * @brief Смотрит на доску и формирует строку для отображения.
+     * @brief Смотрит на доску и формирует строку для отображения поля и сохраняет AttackRelations.
      */
-    void        render      ();
+    void        render                  ();
 
     /**
      * @brief Отображает текущую строку на консоль.
      * Должен быть вызван после вызова BoardView::render().
      */
-    void        show        () const;
+    void        showField               () const;
+
+    void        showAttackRelations     () const;
 };
 
 #endif //BOARD_VIEW_HPP

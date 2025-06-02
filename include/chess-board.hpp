@@ -17,6 +17,14 @@ class ChessBoard {
 private:
     int                                                 m_size_;
     std::vector<std::unique_ptr<AbstractPiece>>         m_pieces_;
+    /**
+     * @brief Заставляет фигуру атаковать другую фигуру на доске, если это возможно.
+     * @param from Место, с которого предполагается атака
+     * @param to Место, на которое предполагается атака
+     * @throws std::runtime_error Случай, если фигура не может атаковать указанную позицию.
+     */
+    void                                                attack              (const Position& from, const Position& to);
+
     void                                                cleanupTraces();
 
     void                                                deletePieceAt       (const Position &position);
@@ -24,6 +32,11 @@ private:
     void                                                decreaseShadowTraces();
 
     [[nodiscard]] const std::unique_ptr<AbstractPiece>& getPieceAtP          (const Position &position);
+
+    /**
+     * @brief Обновление доски, в частности, уменьшение количества следов тени.
+     */
+    void                                                nextTurn            ();
 
 public:
     explicit                                            ChessBoard          (int size = 8);
@@ -50,14 +63,6 @@ public:
      */
     void                                                addShadowTrace      (const Position& position);
 
-    /**
-     * @brief Заставляет фигуру атаковать другую фигуру на доске, если это возможно.
-     * @param from Место, с которого предполагается атака
-     * @param to Место, на которое предполагается атака
-     * @throws std::runtime_error Случай, если фигура не может атаковать указанную позицию.
-     */
-    void                                                attack              (const Position& from, const Position& to);
-
     void                                                clear               ();
 
     void                                                deletePieceAtIfExist(Position position);
@@ -76,7 +81,7 @@ public:
      */
     [[nodiscard]] const AbstractPiece&                  getPieceAt          (const Position &position) const;
 
-    int                                                 getSize             () const;
+    [[nodiscard]] int                                   getSize             () const;
 
     [[nodiscard]] bool                                  hasPieceAt          (const Position& position) const;
 
@@ -88,9 +93,12 @@ public:
     [[nodiscard]] bool                                  isValidPosition     (const Position& position) const;
 
     /**
-     * @brief Обновление доски, в частности, уменьшение количества следов тени.
+     * @brief Осуществляет полный ход фигуры с одной позиции на другую с учетом всех проверок.
+     * @param from Позиция, с которой начинается ход.
+     * @param to Позиция, на которую предполагается ход фигуры, находящейся на from.
+     * @throws std::runtime_error Случай, если фигура на from не может атаковать позицию to.
      */
-    void                                                nextTurn            ();
+    void                                                makeTurn            (const Position& from, const Position& to);
 };
 
 

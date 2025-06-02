@@ -4,20 +4,30 @@
 
 #include "../include/position.hpp"
 
-Position::Position(const int x, const int y) : m_x_(x), m_y_(y) {}
+#include <stdexcept>
 
-Position::Position(const Position &other) = default;
+Position::Position(const int x, const int y) noexcept : m_x_(x), m_y_(y) {}
 
-int Position::getX() const { return m_x_; }
+Position::Position(const Position &other) noexcept = default;
 
-int Position::getY() const { return m_y_; }
+Position::Position(const std::initializer_list<int> coords) noexcept(false) {
+    if (coords.size() != 2) {
+        throw std::invalid_argument("Position brace initialization {x,y} requires exactly 2 coordinates");
+    }
+    m_x_ = *coords.begin();
+    m_y_ = *(coords.begin() + 1);
+}
 
-void Position::setX(const int new_x) { m_x_ = new_x; }
+int Position::getX() const noexcept { return m_x_; }
 
-void Position::setY(const int new_y) { m_y_ = new_y; }
+int Position::getY() const noexcept { return m_y_; }
 
-Position& Position::operator=(const Position &other) = default;
+void Position::setX(const int new_x) noexcept { m_x_ = new_x; }
 
-bool Position::operator==(const Position &other) const {
+void Position::setY(const int new_y) noexcept { m_y_ = new_y; }
+
+Position& Position::operator=(const Position &other) noexcept = default;
+
+bool Position::operator==(const Position &other) const noexcept {
     return m_x_ == other.m_x_ && m_y_ == other.m_y_;
 }
