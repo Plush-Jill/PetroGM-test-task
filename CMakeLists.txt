@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.27)
 project(PetroGM_test_task)
 
 set(CMAKE_CXX_STANDARD 20)
