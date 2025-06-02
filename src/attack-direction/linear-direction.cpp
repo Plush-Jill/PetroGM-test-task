@@ -5,8 +5,11 @@
 #include "../../include/attack-direction/linear-direction.hpp"
 #include "../../include/chess-board.hpp"
 
+LinearDirection::LinearDirection(const int offset_x, const int offset_y, const int max_distance) :
+    m_offset_x_(offset_x), m_offset_y_(offset_y), m_max_distance_(max_distance) {}
+
 std::vector<Position> LinearDirection::getPossibleTargets(const Position &from_position,
-const ChessBoard &board) const  {
+                                                          const ChessBoard &board) const  {
     std::vector<Position> targets;
     int distance = 1;
 
@@ -18,9 +21,14 @@ const ChessBoard &board) const  {
             break;
         }
 
-        targets.emplace_back(newX, newY);
 
-        if (board.hasPieceAt(new_position)) break;
+        if (board.hasPieceAt(new_position)) {
+            if (board.getPieceAt(new_position).canBeAttacked()) {
+                targets.emplace_back(newX, newY);
+            }
+            break;
+        }
+        targets.emplace_back(newX, newY);
         ++distance;
     }
     return targets;

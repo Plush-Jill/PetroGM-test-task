@@ -16,7 +16,7 @@ King::King(const Position &position) : AbstractPiece(position, s_symbol_) {
 
 char King::getSymbol() const { return s_symbol_; }
 
-std::string King::getName() {
+std::string King::getName() const {
     return s_piece_name_;
 }
 

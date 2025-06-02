@@ -6,7 +6,7 @@
 
 ShadowTrace::ShadowTrace(const Position &position) : AbstractPiece(position, s_symbol_) {}
 
-bool ShadowTrace::canAttack(const Position &target_position, const ChessBoard &board) {
+bool ShadowTrace::canAttack([[maybe_unused]] const Position &target_position, [[maybe_unused]] const ChessBoard &board) {
     return false;
 }
 
@@ -16,7 +16,7 @@ bool ShadowTrace::canBeAttacked() const {
 
 char ShadowTrace::getSymbol() const { return s_symbol_; }
 
-std::string ShadowTrace::getName() { return s_piece_name_; }
+std::string ShadowTrace::getName() const { return s_piece_name_; }
 
 void ShadowTrace::decreaseLifetime() { --m_lifetime_; }
 

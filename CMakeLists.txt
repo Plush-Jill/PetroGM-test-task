@@ -30,20 +30,18 @@ add_executable(PetroGM_test_task src/main.cpp
         src/position.cpp
         include/position.hpp
         src/pieces/abstract-piece.cpp
-        src/piece-factory.cpp
-        include/piece-factory.hpp
-        src/piece-registrar.cpp
-        include/piece-registrar.hpp
-        src/piece-parser.cpp
-        include/piece-parser.hpp
+        src/creating/piece-factory.cpp
+        include/creating/piece-factory.hpp
+        src/creating/piece-registrar.cpp
+        include/creating/piece-registrar.hpp
+        src/creating/piece-parser.cpp
+        include/creating/piece-parser.hpp
         src/attack-relation.cpp
         include/attack-relation.hpp
         src/board-view.cpp
         include/board-view.hpp
-        src/attack-relation-view.cpp
-        include/attack-relation-view.hpp
 )
 
-include_directories("include")
+#include_directories("include")
 target_include_directories(PetroGM_test_task PUBLIC "include")
-target_link_directories(PetroGM_test_task PUBLIC inputs)
+target_compile_options(PetroGM_test_task PUBLIC -O1 -Wall -Wextra -Wpedantic -Werror)

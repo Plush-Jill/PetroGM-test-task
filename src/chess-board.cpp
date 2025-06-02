@@ -6,12 +6,39 @@
 
 #include <algorithm>
 #include <format>
+#include <iostream>
 
 #include "../include/pieces/abstract-piece.hpp"
 #include "pieces/shadow-trace.hpp"
 
 ChessBoard::ChessBoard(const int size) : m_size_(size) {
     m_pieces_ = std::vector<std::unique_ptr<AbstractPiece>>();
+}
+
+void ChessBoard::addPiece(std::unique_ptr<AbstractPiece> new_piece) {
+    if (!new_piece) {
+        throw std::invalid_argument("Cannot add a null piece.");
+    }
+    if (!isValidPosition(new_piece->getPosition())) {
+        throw std::out_of_range(std::format(
+            "Invalid position for piece: {} ({},{})",
+            new_piece->getName(),
+            new_piece->getPosition().getX(),
+            new_piece->getPosition().getY()));
+    }
+    if (hasPieceAt(new_piece->getPosition())) {
+        throw std::out_of_range(std::format(
+            "Position already occupied for piece: {} ({},{})",
+            new_piece->getName(),
+            new_piece->getPosition().getX(),
+            new_piece->getPosition().getY()));
+    }
+    m_pieces_.push_back(std::move(new_piece));
+
+}
+
+void ChessBoard::clear() {
+    m_pieces_.clear();
 }
 
 bool ChessBoard::isValidPosition(const Position &position) const {
@@ -29,15 +56,13 @@ bool ChessBoard::hasPieceAt(const Position& position) const {
 
 void ChessBoard::addPieces(std::vector<std::unique_ptr<AbstractPiece>>&& new_pieces) {
     for (auto& piece : new_pieces) {
-        if (isValidPosition(piece->getPosition()) && !hasPieceAt(piece->getPosition())) {
-            m_pieces_.push_back(std::move(piece));
-        } else {
-            throw std::out_of_range(std::format(
-                "Invalid position for piece: {} ({},{})",
-                piece->getName(),
-                piece->getPosition().getX(),
-                piece->getPosition().getY()));
-        }
+        addPiece(std::move(piece));
+    }
+}
+
+void ChessBoard::deletePieceAtIfExist(const Position position) {
+    if (hasPieceAt(position)) {
+        deletePieceAt(position);
     }
 }
 
@@ -69,10 +94,42 @@ std::vector<AttackRelation> ChessBoard::getAttackRelations() const {
     return relations;
 }
 
+const AbstractPiece& ChessBoard::getPieceAt(const Position& position) const {
+    for (const auto& piece : m_pieces_) {
+        if (piece->getPosition() == position) {
+            return *piece;
+        }
+    }
+    throw std::runtime_error(std::format(
+        "No piece found at position ({},{})",
+        position.getX(),
+        position.getY()));
+}
+
 void ChessBoard::addShadowTrace(const Position &position) {
     if (isValidPosition(position) && !hasPieceAt(position)) {
         m_pieces_.push_back(std::make_unique<ShadowTrace>(position));
+    } else {
+        throw std::runtime_error(std::format(
+            "Invalid position for shadow trace: ({},{})",
+            position.getX(),
+            position.getY()));
     }
+}
+
+void ChessBoard::attack(const Position &from, const Position &to) {
+    if (hasPieceAt(from)) {
+        try {
+            getPieceAtP(from)->attack(*this, to);
+        } catch (const std::runtime_error& error) {
+            throw std::runtime_error(std::format(
+                "Attack failed from ({},{}) to ({},{}): {}",
+                from.getX(), from.getY(),
+                to.getX(), to.getY(),
+                error.what()));
+        }
+    }
+    decreaseShadowTraces();
 }
 
 void ChessBoard::cleanupTraces() {
@@ -87,24 +144,42 @@ void ChessBoard::cleanupTraces() {
 }
 
 void ChessBoard::nextTurn() {
-    for (auto& piece : m_pieces_) {
-        if (const auto trace = dynamic_cast<ShadowTrace*>(piece.get())) {
-            trace->decreaseLifetime();
-        }
-    }
     cleanupTraces();
 }
 
-const AbstractPiece& ChessBoard::getPieceAt(const Position position) const {
-    for (const auto& piece : m_pieces_) {
-        if (piece->getPosition() == position) {
-            return *piece;
+void ChessBoard::deletePieceAt(const Position& position) {
+    if (!isValidPosition(position)) {
+        throw std::out_of_range(std::format(
+            "Invalid position for deletion: ({},{})",
+            position.getX(),
+            position.getY()));
+    }
+    for (auto it = m_pieces_.begin(); it != m_pieces_.end(); ++it) {
+        if ((*it)->getPosition() == position) {
+            m_pieces_.erase(it);
+            return;
         }
     }
-    throw std::out_of_range(std::format(
+}
+
+const std::unique_ptr<AbstractPiece>& ChessBoard::getPieceAtP(const Position &position) {
+    for (const auto& piece : m_pieces_) {
+        if (piece->getPosition() == position) {
+            return piece;
+        }
+    }
+    throw std::runtime_error(std::format(
         "No piece found at position ({},{})",
         position.getX(),
         position.getY()));
 }
 
 int ChessBoard::getSize() const { return m_size_; }
+
+void ChessBoard::decreaseShadowTraces() {
+    for (auto& piece : m_pieces_) {
+        if (const auto trace = dynamic_cast<ShadowTrace*>(piece.get())) {
+            trace->decreaseLifetime();
+        }
+    }
+}

@@ -2,7 +2,7 @@
 // Created by plush-jill on 6/1/25.
 //
 
-#include "../include/piece-factory.hpp"
+#include "creating/piece-factory.hpp"
 
 PieceFactory& PieceFactory::instance() {
     static PieceFactory factory;

@@ -24,4 +24,4 @@ char Rook::getSymbol() const {
     return s_symbol_;
 }
 
-std::string Rook::getName() { return s_piece_name_; }
+std::string Rook::getName() const { return s_piece_name_; }

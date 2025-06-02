@@ -24,5 +24,5 @@ PieceRegistrar Queen::s_registrar_ {
 
 char Queen::getSymbol() const { return s_symbol_; }
 
-std::string Queen::getName() { return s_piece_name_; }
+std::string Queen::getName() const { return s_piece_name_; }
 
