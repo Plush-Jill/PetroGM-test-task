@@ -27,7 +27,8 @@ std::vector<std::unique_ptr<AbstractPiece>> PieceParser::parseFile(const std::st
             } else {
                 std::cout << std::format("Unknown piece type: {}", piece_type) << std::endl;
             }
-        } catch (const std::exception& e) {
+        } catch ([[maybe_unused]] const std::exception& exception) {
+
         }
     }
 

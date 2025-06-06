@@ -21,9 +21,9 @@ private:
     std::map<std::string, Creator>  m_creators;
     std::vector<std::string>        m_piece_names;
 
-public:
                                                     PieceFactory            () = default;
 
+public:
     /**
      * @brief Создание фигуры по имени.
      * @param name Имя фигуры.
